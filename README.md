@@ -7,30 +7,39 @@ El sistema permite a los clientes consultar un catálogo de productos (como jeng
 
 ## Épicas del Proyecto
 
-A partir de las funcionalidades requeridas, el desarrollo se divide en las siguientes cuatro grandes épicas:
+A partir del mapeo de historias de usuario y la planificación de nuestros Sprints, el desarrollo del proyecto se divide en las siguientes **6 grandes épicas**:
 
 ### 1. Gestión de Inventario
-- Permite gestionar el inventario de productos en tiempo real.
+- Permite gestionar el inventario de productos en tiempo real (registro, actualización y consulta).
 - Garantiza que los clientes puedan verificar la disponibilidad antes de confirmar su compra.
 
-### 2. Gestión de Pedidos
-- Facilita a los clientes realizar pedidos a través de la plataforma.
-- Permite al comerciante recibir, gestionar y programar la preparación de los pedidos.
-- Soporta la programación de la recogida de pedidos según los horarios disponibles.
+### 2. Gestión de Usuario
+- Maneja el registro inicial de nuevos clientes en la plataforma.
+- Permite la actualización y gestión de los datos del perfil de usuario.
 
-### 3. Gestión de Pagos
-- Encargada de procesar de forma segura los pagos asociados a los pedidos realizados por los clientes.
+### 3. Gestión de Pedidos
+- Facilita a los clientes realizar pedidos a través de la plataforma y consultar su historial.
+- Permite al comerciante recibir y gestionar los pedidos entrantes.
 
-### 4. Gestión de Domicilios
-- Coordina la entrega de los pedidos que no son recogidos en el punto de venta.
-- Prepara el sistema para futuras integraciones con servicios de domicilio externos (como Rappi o PedidosYa).
+### 4. Gestión de Pagos
+- Encargada de procesar de forma segura los pagos asociados a los pedidos realizados.
+- Permite tanto al cliente como al sistema consultar el estado del pago.
+
+### 5. Gestión de Domicilios
+- Módulo enfocado en el rol del domiciliario.
+- Permite a los repartidores consultar sus pedidos asignados, ver los detalles de entrega y actualizar el estado del domicilio.
+
+### 6. Gestión de Despacho
+- Módulo logístico interno para el comerciante.
+- Permite consultar los pedidos que están pendientes por entregar, asignar un domiciliario a cada pedido y despacharlos formalmente.
 
 ## Flujo del Sistema
 Con la implementación de SAMIFRUBER, el flujo tradicional se moderniza:
-1. El cliente consulta el catálogo y selecciona los productos.
-2. Se verifica la disponibilidad en el inventario.
-3. El cliente realiza el pedido, lo paga y selecciona la modalidad (Recoger o Domicilio).
-4. El comerciante recibe el pedido, programa su preparación y lo tiene listo para su entrega.
+1. El cliente se registra o inicia sesión.
+2. Consulta el catálogo y selecciona los productos, verificando la disponibilidad.
+3. El cliente realiza el pedido, efectúa el pago en línea y selecciona la modalidad (Recoger o Domicilio).
+4. El comerciante recibe el pedido, lo prepara y lo despacha asignándolo a un domiciliario o dejándolo listo en el punto físico.
+5. El domiciliario (si aplica) gestiona la entrega y actualiza el estado hasta llegar al cliente.
 
 ## Equipo de Trabajo
 - **Analista:** Lesber Jose Estanga
