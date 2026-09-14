@@ -1,12 +1,10 @@
-# 🎨 Diseño de Interfaz (UI) y Experiencia de Usuario (UX)
+# 📅 Planeación Ágil y Requisitos
 
-Esta carpeta contiene las evidencias visuales y prototipos de la plataforma **SAMIFRUBER**. El objetivo de estos diseños es garantizar una experiencia de usuario fluida tanto para la alta demanda en la plaza de mercado (comerciante) como para el comprador (cliente).
+En esta carpeta se encuentran los artefactos de gestión de requisitos y planeación ágil del proyecto **SAMIFRUBER**. 
 
-## Enlace al Prototipo Interactivo
-* 🔗 **[Haz clic aquí para ver el proyecto en Figma] (Reemplaza este texto con tu link de Figma)**
+## Archivos incluidos en esta sección:
+* **`Historias Usuario.xlsx`**: Catálogo detallado de los requerimientos del sistema desde la perspectiva del usuario final (comerciantes y clientes).
+* **`Story mapping.xlsx`**: Mapeo visual de las historias de usuario para organizar los lanzamientos (releases) y priorizar el flujo de valor.
+* **`PLANINGPOKER.xlsx`**: Registro de la estimación de esfuerzo de cada historia de usuario realizada por el equipo de desarrollo.
 
-## Contenido de esta carpeta:
-* Exportaciones en imagen (`.png` / `.jpg`) de las pantallas principales:
-  * Vista de catálogo de productos.
-  * Vista del carrito de compras y checkout.
-  * Vista del panel de administración del comerciante.
+*Nota: Estos documentos son la base para el desarrollo de nuestras épicas de inventario, pedidos, pagos y domicilios.*
