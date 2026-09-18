@@ -42,7 +42,7 @@ Con la implementación de SAMIFRUBER, el flujo tradicional se moderniza:
 5. El domiciliario (si aplica) gestiona la entrega y actualiza el estado hasta llegar al cliente.
 
 ## Equipo de Trabajo
-- **Analista:** Lesber Jose Estanga
-- **Desarrollador 1:** Samuel Alonso Guevara
-- **Desarrollador 2:** Diana Yineth Velasco
-- **Tester:** Nicolle Sofía Castro
+- **Analista:** Lesber Estanga Montezuma
+- **Desarrollador 1:** Diana Velasco Lasso
+- **Desarrollador 2:** Samuel Guevara Morales
+- **Tester:** Nicolle Castro Cardozo
