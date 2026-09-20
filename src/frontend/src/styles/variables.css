@@ -1,0 +1,433 @@
+/* src/styles/variables.css */
+
+/* --- LAYOUT GENERAL ADMINISTRADOR --- */
+.admin-layout {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+}
+
+.admin-main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- SIDEBAR (MENÚ LATERAL) --- */
+.sidebar {
+    width: 260px;
+    background-color: #FAF7F2;
+    border-right: 1px solid #E6DEC9;
+    padding: 32px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.sidebar-logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sidebar-logo-icon {
+    width: 36px;
+    height: 36px;
+    background-color: #2E7D32;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar-logo-inner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid white;
+}
+
+.sidebar-brand {
+    color: #2E7D32;
+    font-size: 18px;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.menu-item-text {
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: #5D4037;
+}
+
+.menu-item.active {
+    background-color: #E8F5E9;
+}
+
+.menu-item.active .menu-item-text {
+    color: #2E7D32;
+    font-weight: 700;
+}
+
+.menu-icon-placeholder {
+    width: 14px;
+    height: 14px;
+    border: 2px solid #8D6E63;
+}
+
+.menu-item.active .menu-icon-placeholder {
+    border-color: #2E7D32;
+}
+
+/* --- TOPBAR (BARRA SUPERIOR) --- */
+.topbar {
+    height: 72px;
+    background-color: white;
+    border-bottom: 1px solid #E6DEC9;
+    padding: 0 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.topbar-title {
+    color: #8D6E63;
+    font-size: 14px;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.topbar-user {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.topbar-role {
+    color: #3E2723;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+}
+
+.topbar-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* --- PÁGINA: CONSULTAR PRODUCTOS --- */
+.page-content {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    flex: 1;
+}
+
+.page-header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.page-title {
+    color: #3E2723;
+    font-size: 28px;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    margin: 0;
+}
+
+.page-subtitle {
+    color: #8D6E63;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+}
+
+.search-container {
+    width: 100%;
+    max-width: 640px;
+    height: 48px;
+    background-color: white;
+    border: 1px solid #E6DEC9;
+    border-radius: 8px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    color: #3E2723;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+}
+
+.search-icon-placeholder {
+    width: 15px;
+    height: 15px;
+    border: 2px solid #8D6E63;
+}
+
+.empty-state {
+    padding: 80px 40px;
+    border: 1px solid #E6DEC9;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.empty-state-icon-bg {
+    width: 80px;
+    height: 80px;
+    background-color: #FAF7F2;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.empty-state-icon {
+    width: 31px;
+    height: 33px;
+    border: 2px solid #8D6E63;
+}
+
+.empty-state-text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+}
+
+.empty-state-title {
+    color: #3E2723;
+    font-size: 18px;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    margin: 0;
+}
+
+.empty-state-desc {
+    color: #8D6E63;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+}
+
+/* --- FORMULARIO DE PRODUCTOS --- */
+.form-card {
+    width: 100%;
+    max-width: 640px;
+    padding: 32px;
+    background-color: white;
+    border-radius: 16px;
+    border: 1px solid #E6DEC9;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-label {
+    color: #3E2723;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-input-wrapper {
+    height: 44px;
+    padding: 0 16px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #E6DEC9;
+    display: flex;
+    align-items: center;
+}
+
+.form-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    color: #3E2723;
+    font-size: 14px;
+}
+
+/* --- BOTONES --- */
+.button-group {
+    display: flex;
+    gap: 16px;
+    padding-top: 8px;
+}
+
+.btn-primary {
+    padding: 14px 24px;
+    background-color: #2E7D32;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    padding: 14px 24px;
+    background-color: white;
+    color: #5D4037;
+    border: 1px solid #E6DEC9;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* --- ALERTAS FLOTANTES --- */
+.alert-toast {
+    position: absolute;
+    top: 24px;
+    right: 40px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.alert-success {
+    background-color: #E8F5E9;
+    border: 1.5px solid #2E7D32;
+    color: #1B5E20;
+}
+
+.alert-error {
+    background-color: #FFEBEE;
+    border: 1.5px solid #C62828;
+    color: #C62828;
+}
+
+/* --- ESTADOS DE ERROR EN FORMULARIOS --- */
+.form-input-wrapper.has-error {
+    background-color: #FFEBEE;
+    border: 1px solid #C62828;
+}
+
+.form-error-text {
+    color: #C62828;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+/* --- TABLA DE PRODUCTOS --- */
+.table-container {
+    width: 100%;
+    background: white;
+    border: 1px solid #E6DEC9;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.product-table-header {
+    display: flex;
+    background-color: #FAF7F2;
+    padding: 14px 24px;
+    border-bottom: 1px solid #E6DEC9;
+}
+
+.product-table-header .col-foto {
+    width: 80px;
+}
+
+.product-table-header .col-nombre {
+    flex: 1;
+}
+
+.product-table-header .col-stock {
+    width: 120px;
+}
+
+.product-table-header .col-precio {
+    width: 150px;
+}
+
+.table-header-text {
+    color: #8D6E63;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.product-table-row {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    border-bottom: 1px solid #E6DEC9;
+}
+
+.product-table-row:last-child {
+    border-bottom: none;
+}
+
+.col-foto {
+    width: 80px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.col-nombre {
+    flex: 1;
+    color: #3E2723;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.col-stock {
+    width: 120px;
+    color: #5D4037;
+    font-size: 14px;
+}
+
+.col-precio {
+    width: 150px;
+    color: #2E7D32;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.product-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    object-fit: cover;
+}
