@@ -1,65 +1,108 @@
 // src/pages/admin/ConsultarProductos.jsx
-import React, { useState } from 'react';
-import Sidebar from '../../components/admin/Sidebar';
-import TopBar from '../../components/admin/TopBar';
-import ProductTable from '../../components/admin/ProductTable'; // Importamos la tabla
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../../styles/variables.css';
 
 function ConsultarProductos() {
-    // Simulamos la base de datos de productos encontrados
-    // (Para probar el estado vacío, cambia esto a: const resultadosBusqueda = []; )
-    const resultadosBusqueda = [
-        { nombre: 'Champiñón París', stock: 180, precio: '$4.200 ARS / kg', imagen: 'https://placehold.co/40x40' },
-        { nombre: 'Champiñón Portobello', stock: 95, precio: '$5.800 ARS / kg', imagen: 'https://placehold.co/40x40' },
-        { nombre: 'Gírgolas (Ostras)', stock: 40, precio: '$6.500 ARS / kg', imagen: 'https://placehold.co/40x40' },
-        { nombre: 'Seta Shiitake', stock: 15, precio: '$8.900 ARS / kg', imagen: 'https://placehold.co/40x40' },
-    ];
+    const [productos, setProductos] = useState([]);
+    const [cargando, setCargando] = useState(true);
+
+    // Cargar productos del backend al montar el componente
+    const obtenerInventario = async () => {
+        try {
+            const respuesta = await fetch('http://localhost:4000/api/productos');
+            const data = await respuesta.json();
+            setProductos(data);
+            setCargando(false);
+        } catch (error) {
+            console.error('Error al cargar inventario:', error);
+            setCargando(false);
+        }
+    };
+
+
+
+    useEffect(() => {
+        obtenerInventario();
+    }, []);
+
+    function ConsultarProductos() {
+        const [productos, setProductos] = useState([]);
+        const [cargando, setCargando] = useState(true);
+
+        const obtenerInventario = async () => {
+            // ... (código existente para cargar)
+        };
+
+        useEffect(() => {
+            obtenerInventario();
+        }, []);
+
+        // >>> AQUÍ COLOCAS LA FUNCIÓN DE ELIMINAR <<<
+        const eliminarProductoAPI = async (id) => {
+            if (!window.confirm('¿Estás seguro de eliminar este producto?')) return;
+
+            try {
+                const respuesta = await fetch(`http://localhost:4000/api/productos/${id}`, {
+                    method: 'DELETE'
+                });
+                if (respuesta.ok) {
+                    setProductos(productos.filter(p => p.id !== id));
+                } else {
+                    alert('No se pudo eliminar el producto');
+                }
+            } catch (error) {
+                console.error('Error al eliminar:', error);
+            }
+        };
+    }
 
     return (
-        <div className="admin-layout">
-            <Sidebar />
+        <div style={{ padding: '40px', maxWidth: '1000px', margin: '0 auto', fontFamily: 'Inter' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+                <div>
+                    <h2 style={{ color: '#3E2723', fontFamily: 'Manrope', fontWeight: '800', margin: 0 }}>Gestión de Inventario</h2>
+                    <p style={{ color: '#8D6E63', margin: '4px 0 0 0' }}>Administra los productos disponibles en SAMIFRUBER.</p>
+                </div>
+                <Link
+                    to="/admin/productos/nuevo"
+                    style={{ background: '#2E7D32', color: 'white', padding: '10px 16px', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold' }}
+                >
+                    + Nuevo Producto
+                </Link>
+            </div>
 
-            <main className="admin-main-container">
-                <TopBar />
-
-                <section className="page-content">
-
-                    <div className="page-header">
-                        <h1 className="page-title">Consultar Productos</h1>
-                        <p className="page-subtitle">Busca y visualiza los productos agrícolas disponibles en el catálogo de SAMIFRUBER.</p>
-                    </div>
-
-                    <div className="search-container" style={{ border: '1.5px solid #2E7D32' }}>
-                        {/* El buscador (simulando que buscó "Champiñones") */}
-                        <div className="search-icon-placeholder" style={{ borderColor: '#2E7D32' }}></div>
-                        <input
-                            type="text"
-                            className="search-input"
-                            placeholder="Ej. Fruta de dragón..."
-                            defaultValue="Champiñones"
-                        />
-                    </div>
-
-                    {/* RENDERIZADO CONDICIONAL: 
-                        Si hay resultados en el arreglo, mostramos la tabla. 
-                        Si el arreglo está vacío, mostramos el empty state. */}
-
-                    {resultadosBusqueda.length > 0 ? (
-                        <ProductTable productos={resultadosBusqueda} />
-                    ) : (
-                        <div className="empty-state">
-                            <div className="empty-state-icon-bg">
-                                <div className="empty-state-icon"></div>
-                            </div>
-                            <div className="empty-state-text-container">
-                                <h2 className="empty-state-title">No existen coincidencias en el catálogo</h2>
-                                <p className="empty-state-desc">Prueba buscando con palabras clave diferentes o verifica la ortografía del término.</p>
-                            </div>
-                        </div>
-                    )}
-
-                </section>
-            </main>
+            {cargando ? (
+                <p style={{ color: '#8D6E63' }}>Cargando inventario...</p>
+            ) : (
+                <div style={{ background: '#FAF7F2', border: '1px solid #E6DEC9', borderRadius: '12px', overflow: 'hidden' }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                        <thead>
+                            <tr style={{ background: '#EFEBE9', color: '#3E2723', borderBottom: '1px solid #E6DEC9' }}>
+                                <th style={{ padding: '12px 16px' }}>Nombre</th>
+                                <th style={{ padding: '12px 16px' }}>Categoría</th>
+                                <th style={{ padding: '12px 16px' }}>Precio</th>
+                                <th style={{ padding: '12px 16px' }}>Stock</th>
+                                <th style={{ padding: '12px 16px', textAlign: 'center' }}>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {productos.map((prod) => (
+                                <tr key={prod.id} style={{ borderBottom: '1px solid #E6DEC9' }}>
+                                    <td style={{ padding: '12px 16px', fontWeight: '600', color: '#3E2723' }}>{prod.nombre}</td>
+                                    <td style={{ padding: '12px 16px', color: '#8D6E63' }}>{prod.categoria}</td>
+                                    <td style={{ padding: '12px 16px', color: '#2E7D32', fontWeight: 'bold' }}>$ {prod.precio.toLocaleString()}</td>
+                                    <td style={{ padding: '12px 16px', color: '#3E2723' }}>{prod.stock} {prod.unidad || 'lb'}</td>
+                                    <td style={{ padding: '12px 16px', textAlign: 'center', display: 'flex', gap: '8px', justifyContent: 'center' }}>
+                                        <button style={{ background: '#FFA726', border: 'none', padding: '6px 10px', borderRadius: '6px', color: 'white', cursor: 'pointer', fontWeight: 'bold' }}>Editar</button>
+                                        <button style={{ background: '#E53935', border: 'none', padding: '6px 10px', borderRadius: '6px', color: 'white', cursor: 'pointer', fontWeight: 'bold' }}>Eliminar</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
         </div>
     );
 }

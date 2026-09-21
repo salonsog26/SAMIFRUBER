@@ -1,25 +1,24 @@
 // src/backend/server.js
 const express = require('express');
 const cors = require('cors');
+const productosRoutes = require('./routes/productos.routes');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
+
+const authRoutes = require('./routes/auth.routes');
+app.use('/api/auth', authRoutes);
 
 // Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Ruta de prueba inicial
+// Usar las rutas modularizadas
+app.use('/api/productos', productosRoutes);
+
+// Ruta de comprobación de estado
 app.get('/api/health', (req, res) => {
     res.json({ status: 'OK', message: 'Servidor de SAMIFRUBER funcionando correctamente' });
-});
-
-// Ruta temporal de productos (para simular el inventario de la Época 1)
-app.get('/api/productos', (req, res) => {
-    res.json([
-        { id: 1, nombre: 'Jengibre', precio: 2800, categoria: 'Especias', stock: 45 },
-        { id: 2, nombre: 'Tomate Chonto', precio: 3500, categoria: 'Verduras', stock: 120 }
-    ]);
 });
 
 // Iniciar servidor

@@ -49,6 +49,34 @@ function Login() {
             </div>
         </div>
     );
+
+    // Ejemplo para tu componente de Login (fragmento clave)
+    const [correo, setCorreo] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        try {
+            const respuesta = await fetch('http://localhost:4000/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ correo, password })
+            });
+            const data = await respuesta.json();
+
+            if (data.success) {
+                // Guardamos el token en localStorage para simular la sesión activa
+                localStorage.setItem('token', data.token);
+                navigate('/admin/productos'); // Redirige al panel de administración
+            } else {
+                setError(data.mensaje);
+            }
+        } catch (err) {
+            setError('Error al conectar con el servidor');
+        }
+    };
 }
 
 export default Login;
