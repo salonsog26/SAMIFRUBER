@@ -1,10 +1,9 @@
+// Agrega esta primera línea obligatoria en tu App.jsx
+import React from 'react';
 import AppRouter from './routes/AppRouter';
-import './styles/variables.css'; // Carga los colores y fuentes de SAMIFRUBER para todo el proyecto
 
 function App() {
-    return (
-        <AppRouter />
-    );
+    return <AppRouter />;
 }
 
 export default App;

@@ -431,3 +431,44 @@
     border-radius: 6px;
     object-fit: cover;
 }
+
+/* --- DISEÑO VISTAS PÚBLICAS Y LOGIN --- */
+.auth-layout {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    overflow: hidden;
+}
+
+.auth-hero-section {
+    width: 650px;
+    height: 100%;
+    padding: 56px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.auth-form-section {
+    flex: 1;
+    height: 100%;
+    padding: 62px 108px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.input-error {
+    background-color: #FFF1F0 !important;
+    border: 1.5px solid #D92D20 !important;
+}
+
+.error-text {
+    color: #D92D20;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+}
