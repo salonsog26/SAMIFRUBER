@@ -1,120 +1,82 @@
 // src/pages/admin/RegistrarProducto.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Sidebar from '../../components/admin/Sidebar';
+import TopBar from '../../components/admin/TopBar';
+import ProductForm from '../../components/forms/ProductForm';
+import Alert from '../../components/ui/Alert';
 import '../../styles/variables.css';
 
 function RegistrarProducto() {
     const navigate = useNavigate();
 
-    // 1. Estados para los campos del formulario
-    const [form, setForm] = useState({
+    const [formData, setFormData] = useState({
         nombre: '',
         precio: '',
         categoria: '',
-        stock: '',
-        unidad: 'lb',
-        imagen: 'https://placehold.co/280x220'
+        stock: ''
     });
 
-    const [mensaje, setMensaje] = useState('');
+    const [estadoRegistro, setEstadoRegistro] = useState(null); // 'exito' | 'error' | null
 
-    // 2. Manejar cambios en los inputs
     const handleChange = (e) => {
-        setForm({
-            ...form,
+        setFormData({
+            ...formData,
             [e.target.name]: e.target.value
         });
     };
 
-    // 3. Enviar datos al backend mediante POST
+    // Enviar datos al backend mediante POST
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const respuesta = await fetch('http://localhost:4000/api/productos', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(form)
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
             });
 
             if (respuesta.ok) {
-                setMensaje('¡Producto registrado con éxito!');
+                setEstadoRegistro('exito');
                 setTimeout(() => {
-                    navigate('/'); // Redirige al catálogo para ver el cambio reflejado
-                }, 1500);
+                    navigate('/admin/productos'); // Regresa al listado para ver el cambio reflejado
+                }, 1200);
             } else {
-                setMensaje('Hubo un error al registrar el producto.');
+                setEstadoRegistro('error');
             }
         } catch (error) {
             console.error('Error de conexión:', error);
-            setMensaje('No se pudo conectar con el servidor.');
+            setEstadoRegistro('error');
         }
     };
 
     return (
-        <div style={{ padding: '40px', maxWidth: '600px', margin: '0 auto', fontFamily: 'Inter' }}>
-            <h2 style={{ color: '#3E2723', fontFamily: 'Manrope', fontWeight: '800' }}>Registrar Nuevo Producto</h2>
-            <p style={{ color: '#8D6E63', marginBottom: '20px' }}>Ingresa los datos de la cosecha para añadirlos al inventario.</p>
+        <div className="admin-layout">
+            <Sidebar />
+            <main className="admin-main-container">
+                <TopBar />
 
-            {mensaje && <div style={{ padding: '10px', background: '#E8F5E9', color: '#2E7D32', marginBottom: '15px', borderRadius: '6px' }}>{mensaje}</div>}
+                {estadoRegistro === 'exito' && (
+                    <Alert tipo="exito" mensaje="Producto registrado con éxito" />
+                )}
+                {estadoRegistro === 'error' && (
+                    <Alert tipo="error" mensaje="Hubo un error al registrar el producto." />
+                )}
 
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-                <div>
-                    <label style={{ display: 'block', marginBottom: '5px', color: '#3E2723', fontWeight: '600' }}>Nombre del producto:</label>
-                    <input
-                        type="text"
-                        name="nombre"
-                        value={form.nombre}
+                <section className="page-content">
+                    <div className="page-header">
+                        <h1 className="page-title">Registrar Producto</h1>
+                        <p className="page-subtitle">Agrega un nuevo producto agrícola al inventario de distribución.</p>
+                    </div>
+
+                    <ProductForm
+                        formData={formData}
                         onChange={handleChange}
-                        required
-                        style={{ width: '100%', padding: '10px', border: '1px solid #E6DEC9', borderRadius: '6px' }}
+                        onSubmit={handleSubmit}
+                        onCancel={() => navigate('/admin/productos')}
                     />
-                </div>
-
-                <div>
-                    <label style={{ display: 'block', marginBottom: '5px', color: '#3E2723', fontWeight: '600' }}>Precio (COP):</label>
-                    <input
-                        type="number"
-                        name="precio"
-                        value={form.precio}
-                        onChange={handleChange}
-                        required
-                        style={{ width: '100%', padding: '10px', border: '1px solid #E6DEC9', borderRadius: '6px' }}
-                    />
-                </div>
-
-                <div>
-                    <label style={{ display: 'block', marginBottom: '5px', color: '#3E2723', fontWeight: '600' }}>Categoría:</label>
-                    <input
-                        type="text"
-                        name="categoria"
-                        value={form.categoria}
-                        onChange={handleChange}
-                        required
-                        style={{ width: '100%', padding: '10px', border: '1px solid #E6DEC9', borderRadius: '6px' }}
-                    />
-                </div>
-
-                <div>
-                    <label style={{ display: 'block', marginBottom: '5px', color: '#3E2723', fontWeight: '600' }}>Stock disponible:</label>
-                    <input
-                        type="number"
-                        name="stock"
-                        value={form.stock}
-                        onChange={handleChange}
-                        required
-                        style={{ width: '100%', padding: '10px', border: '1px solid #E6DEC9', borderRadius: '6px' }}
-                    />
-                </div>
-
-                <button
-                    type="submit"
-                    style={{ background: '#2E7D32', color: 'white', padding: '12px', border: 'none', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer', marginTop: '10px' }}
-                >
-                    Guardar Producto en el Servidor
-                </button>
-            </form>
+                </section>
+            </main>
         </div>
     );
 }
