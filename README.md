@@ -1,7 +1,7 @@
-# SAMIFRUBER
+# SAMIFRUVER
 
 ## Descripción del Proyecto
-SAMIFRUBER es una plataforma digital orientada a comerciantes de plazas de mercado y galerías. Su objetivo principal es optimizar la gestión de ventas y pedidos durante periodos de alta demanda, resolviendo la dificultad de gestionar el inventario y la atención al cliente de manera eficiente.
+SAMIFRUVER es una plataforma digital orientada a comerciantes de plazas de mercado y galerías. Su objetivo principal es optimizar la gestión de ventas y pedidos durante periodos de alta demanda, resolviendo la dificultad de gestionar el inventario y la atención al cliente de manera eficiente.
 
 El sistema permite a los clientes consultar un catálogo de productos (como jengibre, pimentón, champiñones, etc.), realizar pedidos, efectuar pagos en línea y programar la recogida o solicitar entrega, reduciendo así los tiempos de espera y la congestión en los establecimientos comerciales.
 
@@ -34,7 +34,7 @@ A partir del mapeo de historias de usuario y la planificación de nuestros Sprin
 - Permite consultar los pedidos que están pendientes por entregar, asignar un domiciliario a cada pedido y despacharlos formalmente.
 
 ## Flujo del Sistema
-Con la implementación de SAMIFRUBER, el flujo tradicional se moderniza:
+Con la implementación de SAMIFRUVER, el flujo tradicional se moderniza:
 1. El cliente se registra o inicia sesión.
 2. Consulta el catálogo y selecciona los productos, verificando la disponibilidad.
 3. El cliente realiza el pedido, efectúa el pago en línea y selecciona la modalidad (Recoger o Domicilio).
