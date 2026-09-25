@@ -17,7 +17,7 @@ function Sidebar() {
             {/* Navegación */}
             <nav className="sidebar-menu">
                 {/* Usamos <Link> en lugar de <a> para el enrutador de React */}
-                <Link to="/admin/dashboard" className="menu-item">
+                <Link to="/" className="menu-item">
                     <div className="menu-icon-placeholder"></div>
                     <span className="menu-item-text">Catalogo</span>
                 </Link>

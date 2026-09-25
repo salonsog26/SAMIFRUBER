@@ -1,5 +1,6 @@
 // src/pages/admin/RegistrarProducto.jsx
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/admin/Sidebar';
 import TopBar from '../../components/admin/TopBar';
 import ProductForm from '../../components/forms/ProductForm';
@@ -7,28 +8,59 @@ import Alert from '../../components/ui/Alert';
 import '../../styles/variables.css';
 
 function RegistrarProducto() {
-    // Variables de estado para simular las diferentes pantallas de Figma
-    // Cambia esto a 'exito' o 'duplicado' para probar las alertas
-    const [estadoRegistro, setEstadoRegistro] = useState('exito');
+    const navigate = useNavigate();
 
-    // Si quieres ver el campo rojo del nombre, descomenta esta línea:
-    // const [errores, setErrores] = useState({ nombre: 'Este campo es obligatorio' });
-    const [errores, setErrores] = useState({});
+    const [formData, setFormData] = useState({
+        nombre: '',
+        precio: '',
+        categoria: '',
+        stock: ''
+    });
 
-    const datosPimenton = { nombre: 'Pimentón', precio: '4000', categoria: 'Verduras', stock: '30' };
+    const [estadoRegistro, setEstadoRegistro] = useState(null); // 'exito' | 'error' | null
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    // Enviar datos al backend mediante POST
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const respuesta = await fetch('http://localhost:4000/api/productos', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            if (respuesta.ok) {
+                setEstadoRegistro('exito');
+                setTimeout(() => {
+                    navigate('/admin/productos'); // Regresa al listado para ver el cambio reflejado
+                }, 1200);
+            } else {
+                setEstadoRegistro('error');
+            }
+        } catch (error) {
+            console.error('Error de conexión:', error);
+            setEstadoRegistro('error');
+        }
+    };
 
     return (
         <div className="admin-layout">
             <Sidebar />
-            <main className="admin-main-container" style={{ position: 'relative' }}>
+            <main className="admin-main-container">
                 <TopBar />
 
-                {/* Lógica de Renderizado Condicional de la Alerta */}
                 {estadoRegistro === 'exito' && (
-                    <Alert tipo="exito" mensaje="Producto registrado exitosamente" />
+                    <Alert tipo="exito" mensaje="Producto registrado con éxito" />
                 )}
-                {estadoRegistro === 'duplicado' && (
-                    <Alert tipo="error" mensaje="El producto ya existe. No se permite registro duplicado" />
+                {estadoRegistro === 'error' && (
+                    <Alert tipo="error" mensaje="Hubo un error al registrar el producto." />
                 )}
 
                 <section className="page-content">
@@ -37,11 +69,11 @@ function RegistrarProducto() {
                         <p className="page-subtitle">Agrega un nuevo producto agrícola al inventario de distribución.</p>
                     </div>
 
-                    {/* Pasamos los errores al formulario */}
                     <ProductForm
-                        modoEdicion={false}
-                        datosIniciales={estadoRegistro === 'exito' ? datosPimenton : {}}
-                        errores={errores}
+                        formData={formData}
+                        onChange={handleChange}
+                        onSubmit={handleSubmit}
+                        onCancel={() => navigate('/admin/productos')}
                     />
                 </section>
             </main>

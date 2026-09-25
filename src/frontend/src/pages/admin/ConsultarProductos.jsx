@@ -1,63 +1,80 @@
 // src/pages/admin/ConsultarProductos.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/admin/Sidebar';
 import TopBar from '../../components/admin/TopBar';
-import ProductTable from '../../components/admin/ProductTable'; // Importamos la tabla
+import ProductTable from '../../components/admin/ProductTable';
 import '../../styles/variables.css';
 
 function ConsultarProductos() {
-    // Simulamos la base de datos de productos encontrados
-    // (Para probar el estado vacío, cambia esto a: const resultadosBusqueda = []; )
-    const resultadosBusqueda = [
-        { nombre: 'Champiñón París', stock: 180, precio: '$4.200 ARS / kg', imagen: 'https://placehold.co/40x40' },
-        { nombre: 'Champiñón Portobello', stock: 95, precio: '$5.800 ARS / kg', imagen: 'https://placehold.co/40x40' },
-        { nombre: 'Gírgolas (Ostras)', stock: 40, precio: '$6.500 ARS / kg', imagen: 'https://placehold.co/40x40' },
-        { nombre: 'Seta Shiitake', stock: 15, precio: '$8.900 ARS / kg', imagen: 'https://placehold.co/40x40' },
-    ];
+    const navigate = useNavigate();
+    const [productos, setProductos] = useState([]);
+    const [cargando, setCargando] = useState(true);
+
+    // Cargar productos del backend al montar el componente
+    const obtenerInventario = async () => {
+        try {
+            const respuesta = await fetch('http://localhost:4000/api/productos');
+            const data = await respuesta.json();
+            setProductos(data);
+            setCargando(false);
+        } catch (error) {
+            console.error('Error al cargar inventario:', error);
+            setCargando(false);
+        }
+    };
+
+    useEffect(() => {
+        obtenerInventario();
+    }, []);
+
+    const eliminarProductoAPI = async (id) => {
+        if (!window.confirm('¿Estás seguro de eliminar este producto?')) return;
+
+        try {
+            const respuesta = await fetch(`http://localhost:4000/api/productos/${id}`, {
+                method: 'DELETE'
+            });
+            if (respuesta.ok) {
+                setProductos(productos.filter(p => p.id !== id));
+            } else {
+                alert('No se pudo eliminar el producto');
+            }
+        } catch (error) {
+            console.error('Error al eliminar:', error);
+        }
+    };
+
+    const handleEditar = (id) => {
+        navigate(`/admin/productos/editar/${id}`);
+    };
 
     return (
         <div className="admin-layout">
             <Sidebar />
-
             <main className="admin-main-container">
                 <TopBar />
 
                 <section className="page-content">
-
-                    <div className="page-header">
-                        <h1 className="page-title">Consultar Productos</h1>
-                        <p className="page-subtitle">Busca y visualiza los productos agrícolas disponibles en el catálogo de SAMIFRUBER.</p>
-                    </div>
-
-                    <div className="search-container" style={{ border: '1.5px solid #2E7D32' }}>
-                        {/* El buscador (simulando que buscó "Champiñones") */}
-                        <div className="search-icon-placeholder" style={{ borderColor: '#2E7D32' }}></div>
-                        <input
-                            type="text"
-                            className="search-input"
-                            placeholder="Ej. Fruta de dragón..."
-                            defaultValue="Champiñones"
-                        />
-                    </div>
-
-                    {/* RENDERIZADO CONDICIONAL: 
-                        Si hay resultados en el arreglo, mostramos la tabla. 
-                        Si el arreglo está vacío, mostramos el empty state. */}
-
-                    {resultadosBusqueda.length > 0 ? (
-                        <ProductTable productos={resultadosBusqueda} />
-                    ) : (
-                        <div className="empty-state">
-                            <div className="empty-state-icon-bg">
-                                <div className="empty-state-icon"></div>
-                            </div>
-                            <div className="empty-state-text-container">
-                                <h2 className="empty-state-title">No existen coincidencias en el catálogo</h2>
-                                <p className="empty-state-desc">Prueba buscando con palabras clave diferentes o verifica la ortografía del término.</p>
-                            </div>
+                    <div className="page-header-row">
+                        <div className="page-header">
+                            <h1 className="page-title">Gestión de Inventario</h1>
+                            <p className="page-subtitle">Administra los productos disponibles en SAMIFRUBER.</p>
                         </div>
-                    )}
+                        <Link to="/admin/productos/nuevo" className="btn-primary-nav">
+                            + Nuevo Producto
+                        </Link>
+                    </div>
 
+                    {cargando ? (
+                        <p style={{ color: '#8D6E63' }}>Cargando inventario...</p>
+                    ) : (
+                        <ProductTable
+                            productos={productos}
+                            onEditar={handleEditar}
+                            onEliminar={eliminarProductoAPI}
+                        />
+                    )}
                 </section>
             </main>
         </div>

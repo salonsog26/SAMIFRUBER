@@ -2,7 +2,7 @@
 import React from 'react';
 import '../../styles/variables.css';
 
-function AuthInput({ label, type = "text", defaultValue = "", error = "" }) {
+function AuthInput({ label, type = "text", value, defaultValue = "", onChange, error = "" }) {
     return (
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 8 }}>
             <label style={{ color: '#10271B', fontSize: 14, fontFamily: 'Inter' }}>{label}</label>
@@ -20,7 +20,9 @@ function AuthInput({ label, type = "text", defaultValue = "", error = "" }) {
             >
                 <input
                     type={type}
-                    defaultValue={defaultValue}
+                    value={value}
+                    defaultValue={value === undefined ? defaultValue : undefined}
+                    onChange={onChange}
                     style={{ border: 'none', outline: 'none', background: 'transparent', width: '100%', color: '#68786F', fontSize: 16 }}
                 />
             </div>
