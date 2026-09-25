@@ -82,3 +82,4 @@ function RegistrarProducto() {
 }
 
 export default RegistrarProducto;
+
