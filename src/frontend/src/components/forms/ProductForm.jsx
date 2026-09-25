@@ -1,18 +1,22 @@
+// src/components/forms/ProductForm.jsx
 import React from 'react';
 import '../../styles/variables.css';
 
-function ProductForm({ modoEdicion = false, datosIniciales = {}, errores = {}, onCancel }) {
+function ProductForm({ modoEdicion = false, formData = {}, errores = {}, onChange, onSubmit, onCancel }) {
     return (
-        <form className="form-card" onSubmit={(e) => e.preventDefault()}>
+        <form className="form-card" onSubmit={onSubmit}>
 
             <div className="form-group">
                 <label className="form-label">Nombre del Producto</label>
                 <div className={`form-input-wrapper ${errores.nombre ? 'has-error' : ''}`}>
                     <input
                         type="text"
+                        name="nombre"
                         className="form-input"
-                        defaultValue={datosIniciales.nombre || ''}
+                        value={formData.nombre || ''}
+                        onChange={onChange}
                         placeholder="Ej. Pimentón, Tomate..."
+                        required
                     />
                 </div>
                 {errores.nombre && <span className="form-error-text">{errores.nombre}</span>}
@@ -23,8 +27,11 @@ function ProductForm({ modoEdicion = false, datosIniciales = {}, errores = {}, o
                 <div className={`form-input-wrapper ${errores.precio ? 'has-error' : ''}`}>
                     <input
                         type="number"
+                        name="precio"
                         className="form-input"
-                        defaultValue={datosIniciales.precio || ''}
+                        value={formData.precio ?? ''}
+                        onChange={onChange}
+                        required
                     />
                 </div>
                 {errores.precio && <span className="form-error-text">{errores.precio}</span>}
@@ -33,7 +40,13 @@ function ProductForm({ modoEdicion = false, datosIniciales = {}, errores = {}, o
             <div className="form-group">
                 <label className="form-label">Categoría</label>
                 <div className={`form-input-wrapper ${errores.categoria ? 'has-error' : ''}`}>
-                    <select className="form-input" defaultValue={datosIniciales.categoria || ''}>
+                    <select
+                        name="categoria"
+                        className="form-input"
+                        value={formData.categoria || ''}
+                        onChange={onChange}
+                        required
+                    >
                         <option value="">Seleccionar...</option>
                         <option value="Verduras">Verduras</option>
                         <option value="Frutas">Frutas</option>
@@ -48,8 +61,11 @@ function ProductForm({ modoEdicion = false, datosIniciales = {}, errores = {}, o
                 <div className={`form-input-wrapper ${errores.stock ? 'has-error' : ''}`}>
                     <input
                         type="number"
+                        name="stock"
                         className="form-input"
-                        defaultValue={datosIniciales.stock || ''}
+                        value={formData.stock ?? ''}
+                        onChange={onChange}
+                        required
                     />
                 </div>
                 {errores.stock && <span className="form-error-text">{errores.stock}</span>}
